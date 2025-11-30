@@ -43,13 +43,11 @@ TidalDL-Web-Downloader/
 pip install -r requirements.txt
 ```
 ## 🔑 登录Tidal并授权
-* 打开 login.py 输入 token.json 的绝对路径，路径应在 main.py 同目录下比如：
-* SESSION_FILE = Path("/root/Tidal-Web-Downloader-main/token.json")
-* 然后运行：
 ```text
 python login.py
 ```
 ## ▶️ 运行项目
+* 打开 main.py 找到 REGION = os.getenv("REGION", "HK") 把 HK 改成自己账号的所在区域
 * 默认端口 8050
 ```text
 python main.py
