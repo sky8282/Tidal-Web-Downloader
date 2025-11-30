@@ -13,6 +13,12 @@
         #settings-btn {
             top: 70px;
         }
+        #region-btn {
+            color: #00FF00;
+        }
+        #region-btn:hover {
+            color: #FFD700 !important;
+        }
     </style>
 </head>
 <body>
@@ -21,6 +27,8 @@
           <path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.93-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.007 7.007 0 0 0-1.63-.94l-.36-2.54A.5.5 0 0 0 14.3 2h-4.6a.5.5 0 0 0-.49.42l-.36 2.54a7.007 7.007 0 0 0-1.63.94l-2.39-.96a.5.5 0 0 0-.61.22L2.3 8.84a.5.5 0 0 0 .12.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.12.64l1.93 3.32a.5.5 0 0 0 .61.22l2.39-.96c.48.39 1.03.72 1.63.94l.36 2.54c.04.24.25.42.49.42h4.6c.24 0 .45-.18.49-.42l.36-2.54c.6-.22 1.15-.55 1.63-.94l2.39.96a.5.5 0 0 0 .61-.22l1.93-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/>
         </svg>
     </button>
+
+    <button id="region-btn" class="corner-btn" title="点击运行登录脚本" style="top: 120px; font-size: 14px; font-weight: bold; width: auto; padding: 0 10px; min-width: 40px;">Login</button>
 
     <button id="github-btn" class="corner-btn" title="Github" onclick="window.open('https://github.com/sky8282/Tidal-Web-Downloader', '_blank')">
         <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
@@ -180,6 +188,14 @@
         </div>
     </div>
 
+    <div id="tidal-log-modal" class="modal">
+        <div class="modal-content settings-modal-content">
+            <span class="modal-close-btn" onclick="document.getElementById('tidal-log-modal').style.display='none'">&times;</span>
+            <h3>正在运行 login.py</h3>
+            <div id="tidal-log-body" class="settings-body" style="background-color: #111; color: #0f0; padding: 10px; border-radius: 6px; min-height: 200px; max-height: 400px; overflow-y: auto; white-space: pre-wrap; word-wrap: break-word; font-family: monospace; font-size: 12px;"></div>
+        </div>
+    </div>
+
     <div id="download-queue-modal" class="modal">
         <div class="modal-content download-queue-modal-content">
             <span class="modal-close-btn">&times;</span>
@@ -236,6 +252,57 @@
         </button>
     </div>
     <audio id="player-audio-element" style="display:none;"></audio>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const regionBtn = document.getElementById('region-btn');
+        const logModal = document.getElementById('tidal-log-modal');
+        const logBody = document.getElementById('tidal-log-body');
+
+        fetch('/get-token-region')
+            .then(response => response.json())
+            .then(data => {
+                if (data.region) {
+                    regionBtn.textContent = data.region;
+                } else {
+                    regionBtn.textContent = "Login";
+                }
+            })
+            .catch(err => {
+                regionBtn.textContent = "Err";
+            });
+
+        regionBtn.addEventListener('click', function() {
+            logModal.style.display = 'block';
+            logBody.textContent = "正在连接服务器并启动脚本...\n";
+            
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}/ws/run-login`;
+            const ws = new WebSocket(wsUrl);
+
+            ws.onmessage = function(event) {
+                logBody.textContent += event.data + "\n";
+                logBody.scrollTop = logBody.scrollHeight;
+                if (event.data.includes("Device authorization successful")) {
+                     setTimeout(() => location.reload(), 2000);
+                }
+            };
+
+            ws.onclose = function() {
+                logBody.textContent += "\n[连接已断开]";
+            };
+
+            ws.onerror = function(error) {
+                logBody.textContent += "\n[WebSocket 错误]";
+            };
+        });
+        
+        window.onclick = function(event) {
+            if (event.target == logModal) {
+                logModal.style.display = "none";
+            }
+        }
+    });
+    </script>
     <script type="module" src="/js/app.js" data-cfasync="false"></script>
 </body>
 </html>
