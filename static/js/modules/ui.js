@@ -106,15 +106,6 @@ export function displayHomepage(modules) {
         const currentOffset = pagedList.offset || 0;
         const currentItemCount = pagedList.items.length;
         sentinel.dataset.offset = currentOffset + currentItemCount; 
-        console.log(
-            "✅ [UI.js] 监视器(Sentinel)已创建:", 
-            { 
-                modulePath: dataPath, 
-                offset: sentinel.dataset.offset, 
-                limit: pagedList.limit,
-                total: pagedList.totalNumberOfItems
-            }
-        );
 
         sentinel.dataset.total = pagedList.totalNumberOfItems;
         sentinel.dataset.wallId = wallId;
@@ -345,7 +336,6 @@ export async function showArtistModal(artistId) {
         updatePlayerUI();
     } catch (err) {
         dom.artistModalBody.innerHTML = `<p>加载歌手详情失败: ${err.message}</p>`;
-        console.error(err);
     }
 }
 
