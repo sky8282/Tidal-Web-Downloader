@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TidalDL</title>
     <link rel="stylesheet" href="/css/style.css"> 
-    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.0/dist/ffmpeg.min.js"></script>
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.0/dist/ffmpeg.min.js" data-cfasync="false"></script>
     <style>
         #github-btn:hover {
             color: #FFD700 !important;
@@ -235,9 +235,7 @@
             </svg>
         </button>
     </div>
-
     <audio id="player-audio-element" style="display:none;"></audio>
-    
-    <script src="/js/app.js" type="module"></script>
+    <script type="module" src="/js/app.js" data-cfasync="false"></script>
 </body>
 </html>
