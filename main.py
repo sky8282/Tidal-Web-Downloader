@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import json
 import base64
-from typing import Union
 import httpx
 import uvicorn
+import asyncio
+from typing import Union
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi import WebSocket
 from asyncio import gather
 
 app = FastAPI(title="HiFi-RestAPI", version="v1.1", description="Tidal Music Proxy (Auto-Region)")
@@ -352,6 +355,54 @@ async def get_item_details(item_type: str, item_id: str):
             return res.json()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-token-region")
+async def get_token_region():
+    if not os.path.exists(TOKEN_FILE):
+        return {"region": "N/A", "error": "Token file not found"}
+    try:
+        with open(TOKEN_FILE, "r") as f:
+            token_data = json.load(f)
+        country_code = token_data.get("country_code")
+        return {"region": country_code if country_code else "Unk"}
+    except Exception as e:
+        return {"region": "Err", "error": str(e)}
+
+@app.websocket("/ws/run-login")
+async def websocket_run_login(websocket: WebSocket):
+    await websocket.accept()
+    script_path = os.path.join(os.path.dirname(__file__), "login.py")
+    cmd = f"{sys.executable} -u {script_path}"
+    
+    process = None
+    try:
+        process = await asyncio.create_subprocess_shell(
+            cmd,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
+        
+        async def read_stream(stream, stream_name):
+            while True:
+                line = await stream.readline()
+                if line:
+                    line_text = line.decode('utf-8', errors='ignore').strip()
+                    if line_text:
+                        await websocket.send_text(f"{line_text}")
+                else:
+                    break
+                    
+        await asyncio.gather(
+            read_stream(process.stdout, "stdout"),
+            read_stream(process.stderr, "stderr")
+        )
+        await process.wait()
+        await websocket.send_text("\n=== 脚本执行完毕 ===")
+
+    except Exception as e:
+        await websocket.send_text(f"❌ 错误: {str(e)}")
+    finally:
+        await websocket.close()
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
