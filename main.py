@@ -344,7 +344,7 @@ async def get_item_details(item_type: str, item_id: str):
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
-    return Response(status_code=204)
+    return FileResponse("static/favicon.ico")
 
 @app.get("/", include_in_schema=False)
 async def read_index():
