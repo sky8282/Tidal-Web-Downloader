@@ -53,5 +53,7 @@ python login.py
 ```text
 python main.py
 ```
+![1](https://github.com/user-attachments/assets/202daf79-112d-4a24-85d7-3d9691bbf46b)
+
 ## 📜 许可证 (License)
 本项目采用 CC BY-NC 4.0 许可证。 您可以自由地：分享、修改、学习。 严禁用于商业用途。详情请见 LICENSE 文件。
