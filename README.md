@@ -14,7 +14,6 @@ TidalDL-Web 是一个基于 Python (FastAPI) 后端和原生 JavaScript 前端�
 * **本地缓存**：支持断点续传和磁盘缓存。
 
 ## 🛠️ 目录结构
-
 在使用前，请确保你的文件目录结构如下：
 ```text
 TidalDL-Web-Downloader/
@@ -23,12 +22,12 @@ TidalDL-Web-Downloader/
 ├── token.json           # (运行 login.py 授权后自动生成)
 ├── requirements.txt     # 依赖列表
 └── static/              # 前端静态资源文件夹
-    ├── index.html       # Web 主页
+    ├── index.html
     ├── css/
     │   └── style.css
     └── js/
         ├── app.js
-        ├── modules/     # JS 模块
+        ├── modules/
         │   ├── api.js
         │   ├── dom.js
         │   ├── downloader.js
@@ -42,15 +41,15 @@ TidalDL-Web-Downloader/
 ```text
 pip install -r requirements.txt
 ```
-## 🔑 登录Tidal并授权
+## 🔑 登录 Tidal 授权并获取 Token
 ```text
-python login.py
+python3 login.py
 ```
 ## ▶️ 运行项目
 * 打开 main.py 找到 REGION = os.getenv("REGION", "HK") 把 HK 改成自己账号的所在区域
 * 默认端口 8050
 ```text
-python main.py
+python3 main.py
 ```
 ![1](https://github.com/user-attachments/assets/202daf79-112d-4a24-85d7-3d9691bbf46b)
 
