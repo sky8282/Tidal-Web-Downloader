@@ -1,4 +1,5 @@
 /* style.css */
+
 :root {
     --bg-color: #000000;
     --card-bg-color: #1e1e1e;
@@ -11,11 +12,13 @@
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 20px 0; padding-bottom: 80px; }
 body.modal-open { overflow: hidden; }
 .container { max-width: 1800px; margin: auto; padding: 0 80px; }
+
 #results-wall {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
+
 .corner-btn {
     position: fixed;
     right: 20px;
@@ -46,9 +49,24 @@ body.modal-open { overflow: hidden; }
 .corner-btn:hover svg {
     fill: var(--primary-color);
 }
-#settings-btn {
+
+#github-btn {
     top: 20px;
 }
+#settings-btn {
+    top: 80px;
+}
+#login-btn {
+    top: 140px;
+    color: #4CAF50;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+}
+#login-btn:hover {
+    color: var(--primary-color);
+}
+
 .back-to-top-btn {
     position: fixed;
     bottom: 30px;
@@ -78,6 +96,7 @@ body.modal-open { overflow: hidden; }
 .back-to-top-btn svg {
     fill: #000;
 }
+
 header { background-color: var(--bg-color); padding: 20px; border-radius: 8px; margin-bottom: 10px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
 header h1 { margin: 0; cursor: pointer; }
 .search-container { width: 45%; display: flex; flex-direction: column; align-items: center; gap: 15px; }
@@ -91,7 +110,12 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
 .search-tabs { display: flex; gap: 10px; }
 .tab-btn { padding: 8px 18px; border: 1px solid #555; border-radius: var(--border-radius-main); background-color: transparent; color: var(--text-color-subtle); cursor: pointer; transition: all 0.2s; }
 .tab-btn.active { background-color: var(--primary-color); color: #000; border-color: var(--primary-color); font-weight: bold; }
-.search-bar button:hover:not(:disabled), .tab-btn:hover { color: var(--primary-color); }
+.search-bar button:hover:not(:disabled), .tab-btn:hover { 
+    color: var(--primary-color); 
+}
+.tab-btn.active:hover {
+    color: #000;
+}
 .player-btn:hover:not(:disabled) svg, .card-actions button:hover:not(:disabled) svg { fill: var(--primary-color); }
 .track-actions button:hover svg { fill: var(--primary-color); }
 .action-btn:hover:not(:disabled) { color: var(--primary-color); border-color: var(--primary-color); }
@@ -127,6 +151,7 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
 .collapse-btn.is-collapsed svg {
     transform: rotate(-90deg);
 }
+
 .cover-wall { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
@@ -143,6 +168,7 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
     text-align: center;
     padding: 20px;
 }
+
 .card {
     background-color: var(--card-bg-color);
     border-radius: 8px;
@@ -156,6 +182,11 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
 .card.is-active-album {
     box-shadow: 0 0 0 6px var(--primary-color);
 }
+
+.card[data-artist-id] .img-container {
+    border-radius: 8px;
+}
+
 .img-container {
     position: relative;
     width: 100%;
@@ -181,6 +212,7 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
     text-align: left;
     margin-top: 8px; 
 }
+
 .card-badge {
     position: absolute;
     top: 0;
@@ -194,6 +226,7 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
     z-index: 1;
     line-height: 1;
 }
+
 .card-info {
     margin-top: auto;
     padding: 10px 15px 15px;
@@ -203,6 +236,7 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
 .card-play-btn { background: none; border: none; padding: 0; line-height: 0; cursor: pointer; flex-shrink: 0; }
 .card-play-btn svg { width: 24px; height: 24px; fill: var(--text-color-subtle); transition: fill 0.2s; }
 .card-play-btn:hover .play-icon { fill: var(--primary-color); }
+
 .card-play-btn .play-icon, 
 .card-play-btn .pause-icon {
     display: none;
@@ -224,6 +258,7 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
     display: block;
     fill: var(--primary-color);
 }
+
 .action-btn-success svg { fill: var(--primary-color) !important; }
 .modal { display: none; position: fixed; z-index: 1000; inset: 0; overflow: auto; background-color: rgba(0,0,0,0.7); align-items: center; justify-content: center; }
 #settings-modal { z-index: 1030; }
@@ -231,6 +266,7 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
 #artist-modal { z-index: 1010; } 
 #download-queue-modal { z-index: 1040; }
 .modal.is-visible { display: flex; }
+
 .modal-content { 
     background-color: #282828; 
     padding: 20px; 
@@ -242,7 +278,7 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
     display: flex; 
     flex-direction: column; 
 }
-.artist-modal-content { max-width: 60vw; width: 80%; }
+
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
 .modal-title-container { display: flex; align-items: center; gap: 15px; overflow: hidden; flex-grow: 1; }
 #modal-album-art { width: 50px; height: 50px; border-radius: 4px; object-fit: cover; flex-shrink: 0; }
@@ -263,12 +299,64 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
 .track-actions .play-btn.is-playing .pause-icon { display: block; fill: var(--primary-color); }
 .track-progress-bar-container { margin-top: 8px; }
 .track-progress-bar { width: 100%; accent-color: var(--primary-color); }
-.modal-header-artist { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-#artist-modal-avatar { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; background-color: var(--card-bg-color); }
+#artist-page-container {
+
+}
+
+.artist-page-back-btn {
+    padding: 8px 18px; 
+    border: 1px solid #555; 
+    border-radius: var(--border-radius-main); 
+    background-color: transparent; 
+    color: var(--text-color-subtle); 
+    cursor: pointer; 
+    transition: all 0.2s; 
+    flex-shrink: 0; 
+    display: inline-flex;
+    align-items: center; 
+    gap: 8px;
+    margin-bottom: 20px; 
+}
+.artist-page-back-btn:hover {
+     color: var(--primary-color); 
+     border-color: var(--primary-color);
+}
+.artist-page-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+#artist-page-avatar { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; background-color: var(--card-bg-color); }
+#artist-page-title { margin: 0; font-size: 1.5em; }
+#artist-page-body { overflow-y: auto; }
 .artist-section-title { margin: 25px 0 15px; color: var(--text-color); padding-bottom: 8px; font-size: 1.2em; }
-#modal-body-artist > .artist-section-title:first-child { margin-top: 0; }
-#modal-body-artist > .cover-wall { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); background: none; padding: 0; }
-#artist-modal.is-covered #modal-body-artist { overflow: hidden; }
+#artist-page-body > .artist-section-title:first-child { margin-top: 0; }
+#artist-page-body > .cover-wall { 
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    background: none; 
+}
+
+.video-modal-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    background-color: #282828;
+}
+
+#video-modal-body {
+    padding: 10px 0 0 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+#player-video-element {
+    width: 100%;
+    height: auto;
+    max-height: 75vh;
+    background-color: #000;
+    border-radius: 4px;
+}
+
+#video-modal { 
+    z-index: 1050; 
+}
+
 .settings-modal-content {
     max-width: 340px;
     padding: 12px;
@@ -280,6 +368,7 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
     display: flex;
     flex-direction: column;
 }
+
 .settings-body {
     display: flex;
     flex-direction: column;
@@ -287,23 +376,27 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
     padding: 5px 0;
     overflow-y: auto;
 }
+
 .setting-item {
     display: flex;
     flex-direction: column;
     gap: 8px;
     position: relative;
 }
+
 .setting-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .setting-label {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 14px;
 }
+
 .help-btn {
     width: 18px;
     height: 18px;
@@ -319,6 +412,7 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
     justify-content: center;
     line-height: 1;
 }
+
 .setting-input {
     width: 100%;
     padding: 6px 8px;
@@ -330,10 +424,12 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
     box-sizing: border-box;
     transition: border-color 0.2s;
 }
+
 .setting-input:focus {
     outline: none;
     border-color: var(--primary-color);
 }
+
 .help-text {
     position: absolute;
     top: 100%;
@@ -350,15 +446,18 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
     z-index: 10;
     width: auto;
 }
+
 .help-text.visible { display: block; }
 .help-text p { margin: 0 0 8px; }
 .help-text ul { margin: 0; padding-left: 18px; }
 .help-text code { background-color: #111; padding: 2px 4px; border-radius: 3px; }
+
 .metadata-checkboxes {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
 }
+
 .checkbox-item {
     display: flex;
     align-items: center;
@@ -368,14 +467,17 @@ button:disabled { background-color: #555; color: #888; cursor: not-allowed; }
     margin-right: 8px; 
     accent-color: var(--primary-color); 
 }
+
 .modal-footer {
     margin-top: 0;
     display: flex;
     justify-content: flex-end;
 }
+
 hr.setting-divider {
     display: none;
 }
+
 .toggle-switch {
     position: relative;
     display: inline-block;
@@ -383,7 +485,9 @@ hr.setting-divider {
     height: 24px;
     flex-shrink: 0;
 }
+
 .toggle-switch input { opacity: 0; width: 0; height: 0; }
+
 .toggle-switch .slider {
     position: absolute;
     cursor: pointer;
@@ -395,6 +499,7 @@ hr.setting-divider {
     transition: .4s;
     border-radius: 24px;
 }
+
 .toggle-switch .slider:before {
     position: absolute;
     content: "";
@@ -406,8 +511,26 @@ hr.setting-divider {
     transition: .4s;
     border-radius: 50%;
 }
+
 input:checked + .slider { background-color: var(--primary-color); }
 input:checked + .slider:before { transform: translateX(20px); }
+
+#login-output {
+    background-color: #000;
+    color: #4CAF50;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #333;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-size: 13px;
+    text-align: left;
+    margin-top: 10px;
+}
+
 .global-player {
     position: fixed;
     top: 20px;
@@ -500,6 +623,7 @@ input:checked + .slider:before { transform: translateX(20px); }
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
 .volume-container {
     position: relative;
     display: flex;
@@ -584,15 +708,16 @@ input:checked + .slider:before { transform: translateX(20px); }
     border-radius: 50%;
     border: none;
 }
+
 .download-manager { 
     position: fixed; 
-    bottom: 0;
+    bottom: 0; 
     left: 50%; 
     width: 90%; 
     max-width: 600px; 
     background-color: var(--card-bg-color); 
     border: 1px solid #444; 
-    border-radius: 8px 8px 0 0;
+    border-radius: 8px;
     padding: 10px 20px; 
     padding-bottom: 15px;
     display: flex; 
@@ -606,6 +731,7 @@ input:checked + .slider:before { transform: translateX(20px); }
     pointer-events: none; 
 }
 .download-manager.visible { opacity: 1; transform: translateX(-50%); pointer-events: auto; }
+
 #download-progress-bar-container {
     position: absolute;
     bottom: 0;
@@ -613,15 +739,17 @@ input:checked + .slider:before { transform: translateX(20px); }
     width: 100%;
     height: 5px;
     background-color: #444;
-    border-radius: 0;
+    border-radius: 0 0 8px 8px;
     overflow: hidden;
 }
+
 #download-progress-bar {
     width: 0%;
     height: 100%;
     background-color: var(--primary-color);
     transition: width 0.2s ease-out;
 }
+
 .queue-count { 
     flex-shrink: 0; 
     background-color: var(--primary-color); 
@@ -645,6 +773,7 @@ input:checked + .slider:before { transform: translateX(20px); }
 .status-text { display: flex; flex-direction: column; overflow: hidden; font-size: 14px; flex-grow: 1; }
 #download-album-title { font-weight: bold; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 #download-track-status { color: var(--text-color-subtle); font-size: 12px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+
 .download-cancel-btn {
     background-color: #333;
     border: 1px solid #555;
@@ -668,9 +797,11 @@ input:checked + .slider:before { transform: translateX(20px); }
 .download-cancel-btn svg {
     fill: currentColor;
 }
+
 .download-queue-modal-content {
     max-width: 500px;
 }
+
 .download-queue-body {
     overflow-y: auto;
     display: flex;
@@ -679,6 +810,7 @@ input:checked + .slider:before { transform: translateX(20px); }
     padding-top: 10px;
     max-height: 60vh;
 }
+
 .queue-item {
     display: flex;
     flex-direction: column;
@@ -688,21 +820,25 @@ input:checked + .slider:before { transform: translateX(20px); }
     border-radius: 6px;
     border: 1px solid #444;
 }
+
 .queue-item.is-processing {
     border-color: var(--primary-color);
 }
+
 .queue-item-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
 }
+
 .queue-item-title {
     font-weight: bold;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
 .queue-item-cancel-btn {
     background: none;
     border: none;
@@ -720,6 +856,7 @@ input:checked + .slider:before { transform: translateX(20px); }
 .queue-item-cancel-btn:hover svg {
     fill: #f44336;
 }
+
 .queue-item-progress-container {
     width: 100%;
     height: 6px;
@@ -727,12 +864,14 @@ input:checked + .slider:before { transform: translateX(20px); }
     border-radius: 3px;
     overflow: hidden;
 }
+
 .queue-item-progress-bar {
     width: 0%;
     height: 100%;
     background-color: var(--primary-color);
     transition: width 0.2s ease-out;
 }
+
 @media (max-width: 768px) {
     .container {
         padding: 0 15px;
