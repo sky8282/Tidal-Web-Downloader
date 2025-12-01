@@ -1,4 +1,4 @@
-# TidalDL-Web Downloader & Player
+# TidalDL-Web-Downloader & Player
 Tidal-Web-Downloader 是一个基于 Python (FastAPI) 后端和原生 JavaScript 前端的 Web 应用程序。它允许用户搜索 TIDAL 曲库、在线播放以及下载无损音乐。
 
 > **⚠️ 免责声明 / Disclaimer**
