@@ -50,9 +50,7 @@ python3 login.py
 ```text
 python3 main.py
 ```
-![1](https://github.com/user-attachments/assets/c4e155aa-e8e2-437a-8999-f25e3283f55c)
-
-![2](https://github.com/user-attachments/assets/e6b379b0-1908-4d10-9aa0-18154c5e3cc2)
+![1](https://github.com/user-attachments/assets/6efa0cdc-95f1-4245-af83-cc0259b61dbd)
 
 ## 📜 许可证 (License)
 本项目采用 CC BY-NC 4.0 许可证。 您可以自由地：分享、修改、学习。 严禁用于商业用途。详情请见 LICENSE 文件。
