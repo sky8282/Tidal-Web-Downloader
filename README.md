@@ -39,7 +39,7 @@ TidalDL-Web-Downloader/
 ```
 ## 🚀 安装依赖
 ```text
-pip install -r requirements.txt
+pip3 install -r requirements.txt --break-system-packages
 ```
 ## 🔑 登录 Tidal 授权并获取 Token
 * 可自行设置后台运行自动刷新 Token
